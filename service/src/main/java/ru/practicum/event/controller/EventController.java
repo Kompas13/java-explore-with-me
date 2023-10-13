@@ -25,7 +25,6 @@ public class EventController {
     private final EventService eventService;
     private final RequestService requestService;
 
-
     @PatchMapping("/admin/events/{eventId}")
     public EventDto updateAdmin(@PathVariable(name = "eventId") Long eventId,
                                 @Valid @RequestBody UpdateEventAdminRequest updateEventAdminRequest) {
