@@ -5,3 +5,4 @@ public enum RequestStatusToUpdate {
     CONFIRMED,
     REJECTED
 }
+
