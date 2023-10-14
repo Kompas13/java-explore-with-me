@@ -27,4 +27,4 @@ public interface StatsRepository extends JpaRepository<Hit, Long> {
                             LocalDateTime end,
                             List<String> uris,
                             Boolean unique);
-}
+
