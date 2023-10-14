@@ -26,6 +26,19 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<modules>
+		<module>service</module>
+		<module>statistics</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.fommil</groupId>
+			<artifactId>jsonformat_2.11</artifactId>
+			<version>1.0.0-RC9</version>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<pluginManagement>
 			<plugins>
