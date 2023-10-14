@@ -14,3 +14,4 @@ public class EventRequestStatusUpdateRequest {
     private List<Long> requestIds;
     private RequestStatusToUpdate status;
 }
+
