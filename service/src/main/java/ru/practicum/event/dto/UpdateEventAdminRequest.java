@@ -3,7 +3,7 @@ package ru.practicum.event.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import ru.practicum.event.model.Location;
-import ru.practicum.event.model.StateActionUser;
+import ru.practicum.event.model.StateActionAdmin;
 
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UpdateEventUserRequest {
+public class UpdateEventAdminRequest {
 
     @Size(min = 20, max = 2000)
     private String annotation;
@@ -33,7 +33,7 @@ public class UpdateEventUserRequest {
 
     private Boolean requestModeration;
 
-    private StateActionUser stateAction;
+    private StateActionAdmin stateAction;
 
     @Size(min = 3, max = 120)
     private String title;
