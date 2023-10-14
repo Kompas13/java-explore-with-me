@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
-
 @Service
 public class StatisticsClient extends BaseClient {
     private final ObjectMapper mapper = new ObjectMapper();
