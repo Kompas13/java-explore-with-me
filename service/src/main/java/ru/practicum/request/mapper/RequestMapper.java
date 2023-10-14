@@ -13,4 +13,3 @@ public interface RequestMapper {
     @Mapping(source = "requester.id", target = "requester")
     RequestDto toRequestDto(Request request);
 }
-
