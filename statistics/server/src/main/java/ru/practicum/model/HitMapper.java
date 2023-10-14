@@ -15,4 +15,4 @@ public class HitMapper {
                 .timestamp(hitDto.getTimestamp())
                 .build();
     }
-
+}
