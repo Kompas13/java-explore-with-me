@@ -23,6 +23,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jsonformat.version>1.0.0-RC9</jsonformat.version>
     </properties>
 
     <dependencies>
@@ -33,7 +34,7 @@
         <dependency>
             <groupId>com.fommil</groupId>
             <artifactId>jsonformat_2.11</artifactId>
-            <version>1.0.0-RC9</version>
+            <version>${jsonformat.version}</version>
         </dependency>
     </dependencies>
 
