@@ -30,4 +30,6 @@ public class Comment {
     private Event event;
 
     private LocalDateTime created;
+
+    private LocalDateTime edited;
 }

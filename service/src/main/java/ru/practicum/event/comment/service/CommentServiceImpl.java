@@ -39,10 +39,8 @@ public class CommentServiceImpl implements CommentService {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Событие с ID " + eventId + " не найдено."));
 
-        Optional<Request> request = requestRepository.findByRequesterIdAndEventId(userId, eventId);
-        if (request.isEmpty()) {
-            throw new NotFoundException("Ошибка. Пользователь с ID " + userId + " не участвовал в событии с ID " + eventId);
-        }
+        Optional<Request> request = Optional.ofNullable(requestRepository.findByRequesterIdAndEventId(userId, eventId)
+                .orElseThrow(() -> new NotFoundException("Ошибка. Пользователь с ID " + userId + " не участвовал в событии с ID " + eventId)));
 
         Comment comment = commentMapper.toComment(commentDto);
         comment.setAuthor(author);
@@ -60,7 +58,7 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new NotFoundException("Комментарий с ID " + commentId + " не найден."));
 
         commentToUpdate.setText(commentDto.getText());
-        commentToUpdate.setCreated(LocalDateTime.now());
+        commentToUpdate.setEdited(LocalDateTime.now());
 
         return commentMapper.toCommentDto(commentRepository.save(commentToUpdate));
     }

@@ -28,4 +28,6 @@ public class CommentDto {
     private EventShortDto event;
 
     private LocalDateTime created;
+
+    private LocalDateTime edited;
 }
