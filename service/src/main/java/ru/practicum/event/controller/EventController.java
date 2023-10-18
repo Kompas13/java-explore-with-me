@@ -5,21 +5,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import ru.practicum.event.dto.EventDto;
-import ru.practicum.event.dto.EventRequestStatusUpdateRequest;
-import ru.practicum.event.dto.EventRequestStatusUpdateResult;
-import ru.practicum.event.dto.EventShortDto;
-import ru.practicum.event.dto.NewEventDto;
-import ru.practicum.event.dto.UpdateEventAdminRequest;
-import ru.practicum.event.dto.UpdateEventUserRequest;
+import org.springframework.web.bind.annotation.*;
+import ru.practicum.event.comment.dto.CommentDto;
+import ru.practicum.event.comment.service.CommentService;
+import ru.practicum.event.dto.*;
 import ru.practicum.event.model.Sort;
 import ru.practicum.event.service.EventService;
 import ru.practicum.request.dto.RequestDto;
@@ -37,6 +26,7 @@ import java.util.List;
 public class EventController {
     private final EventService eventService;
     private final RequestService requestService;
+    private final CommentService commentService;
 
     @PatchMapping("/admin/events/{eventId}")
     public EventDto updateAdmin(@PathVariable(name = "eventId") Long eventId,
@@ -59,6 +49,19 @@ public class EventController {
         return eventService.getAllAdmin(userIds, states, categories, rangeStart, rangeEnd, from, size, request);
     }
 
+    @PatchMapping("/admin/comments/{comId}")
+    public CommentDto updateComment(@PathVariable Long comId, @Valid @RequestBody CommentDto commentDto) {
+
+        return commentService.updateComment(comId, commentDto);
+    }
+
+    @DeleteMapping("/admin/comments/{userId}/{comId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteComment(@PathVariable Long userId, @PathVariable Long comId) {
+
+        commentService.deleteComment(userId, comId);
+    }
+
     @GetMapping("/events")
     public List<EventShortDto> getAllPublic(@RequestParam(required = false) String text,
                                             @RequestParam(required = false) List<Long> categories,
@@ -79,6 +82,18 @@ public class EventController {
     public EventDto getByIdPublic(@PathVariable Long id, HttpServletRequest httpRequest) {
 
         return eventService.getByIdPublic(id, httpRequest);
+    }
+
+    @GetMapping("/events/comments/all/{userId}")
+    public List<CommentDto> getAllUserComments(@PathVariable Long userId) {
+
+        return commentService.getAllByUserId(userId);
+    }
+
+    @GetMapping("/events/{eventId}/comments/all")
+    public List<CommentDto> getAllEventComments(@PathVariable Long eventId) {
+
+        return commentService.getAllByEventId(eventId);
     }
 
     @GetMapping("/users/{userId}/events")
@@ -121,5 +136,13 @@ public class EventController {
                                                          @RequestBody EventRequestStatusUpdateRequest eventRequestStatusUpdateRequest) {
 
         return requestService.updateRequests(userId, eventId, eventRequestStatusUpdateRequest);
+    }
+
+    @PostMapping("/users/{userId}/events/{eventId}/comment")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CommentDto createComment(@PathVariable Long eventId, @Valid @RequestBody CommentDto comment,
+                                    @PathVariable Long userId) {
+
+        return commentService.createComment(eventId, comment, userId);
     }
 }
